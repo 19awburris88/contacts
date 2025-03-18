@@ -2,8 +2,18 @@ import { useState, useEffect } from "react";
 import ContactRow from "./ContactRow";
 
 export default function ContactList({ setSelectedContactId }) {
+  /**
+   * State: contacts
+   * - Stores the list of contacts fetched from the API.
+   * - Initially set to an empty array because data is loaded asynchronously.
+   */
   const [contacts, setContacts] = useState([]);
 
+   /**
+   * useEffect Hook:
+   * - Fetches contact data when the component is mounted.
+   * - Runs only once due to the empty dependency array `[]` (this prevents infinite fetching).
+   */
   useEffect(() => {
     async function fetchContacts() {
       try {
@@ -13,7 +23,7 @@ export default function ContactList({ setSelectedContactId }) {
         const data = await response.json();
         console.log("Fetched contacts:", data);
 
-        setContacts(data);
+        setContacts(data); // Update state with fetched contacts
       } catch (error) {
         console.error("Error fetching contacts:", error);
       }
@@ -37,9 +47,10 @@ export default function ContactList({ setSelectedContactId }) {
         </tr>
         {contacts.map((contact) => (
           <ContactRow 
-            key={contact.id} 
+            key={contact.id} // Unique key for React's rendering optimization
             contact={contact} 
-            setSelectedContactId={setSelectedContactId} 
+            setSelectedContactId={setSelectedContactId}  // Pass function to handle selection
+            />
           />
         ))}
       </tbody>

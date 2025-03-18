@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 
 export default function SelectedContact({ selectedContactId, setSelectedContactId }) {
+  /**
+   * State: contact
+   * - Stores the details of the selected contact.
+   * - Initially set to `null` because we need to fetch data from the API.
+   */
   const [contact, setContact] = useState(null);
 
   useEffect(() => {
