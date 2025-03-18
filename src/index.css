@@ -66,3 +66,33 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.selected-contact {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 50%;
+  margin: auto;
+  text-align: left;
+}
+
+.selected-contact h2 {
+  color: #007bff;
+}
+
+.selected-contact p {
+  font-size: 16px;
+}
+
+.selected-contact button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.selected-contact button:hover {
+  background-color: #0056b3;
+}
