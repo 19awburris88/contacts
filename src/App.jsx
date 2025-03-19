@@ -1,26 +1,20 @@
+// Controls whick view is diplayed -- contact list or contact details 
+
 import { useState } from "react";
-import ContactList from "./components/ContactList"; // Component to display all contacts in a table
-import SelectedContact from "./components/SelectedContact"; // Component to display a selected contact's details
-import "./App.css"; // Import CSS file for styling
+import ContactList from "./components/ContactList";
+import SelectedContact from "./components/SelectedContact";
+import "./App.css"; 
 
 export default function App() {
-  /**
-   * State: selectedContactId
-   * - This keeps track of which contact is selected.
-   * - When a contact's ID is set, we show the selected contact's details.
-   */
+  // State to track which contact is selected (default is none)
   const [selectedContactId, setSelectedContactId] = useState(null);
 
   return (
     <>
-      {selectedContactId ? (
-        <SelectedContact
-          selectedContactId={selectedContactId}
-          setSelectedContactId={setSelectedContactId}
-        />
-      ) : (
-        <ContactList setSelectedContactId={setSelectedContactId} />
-      )}
+      {selectedContactId 
+        ? <SelectedContact selectedContactId={selectedContactId} setSelectedContactId={setSelectedContactId} />
+        : <ContactList setSelectedContactId={setSelectedContactId} />
+      }
     </>
   );
 }

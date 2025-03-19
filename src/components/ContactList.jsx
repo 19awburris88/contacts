@@ -1,31 +1,23 @@
+// Displays the contact table, fetches data from API using useEffect 
+
 import { useState, useEffect } from "react";
 import ContactRow from "./ContactRow";
+import "../app.css";
 
 export default function ContactList({ setSelectedContactId }) {
-  /**
-   * State: contacts
-   * - Stores the list of contacts fetched from the API.
-   * - Initially set to an empty array because data is loaded asynchronously.
-   */
+  // Stores all contacts fetched from API
   const [contacts, setContacts] = useState([]);
 
-   /**
-   * useEffect Hook:
-   * - Fetches contact data when the component is mounted.
-   * - Runs only once due to the empty dependency array `[]` (this prevents infinite fetching).
-   */
   useEffect(() => {
     async function fetchContacts() {
       try {
-        const response = await fetch(
-          "https://fsa-jsonplaceholder-69b5c48f1259.herokuapp.com/users"
-        );
+        const response = await fetch("https://fsa-jsonplaceholder-69b5c48f1259.herokuapp.com/users");
         const data = await response.json();
-        console.log("Fetched contacts:", data);
-
-        setContacts(data); // Update state with fetched contacts
+        
+        console.log("Loaded contacts:", data);
+        setContacts(data); // Updating state with fetched data
       } catch (error) {
-        console.error("Error fetching contacts:", error);
+        console.log("Failed to load contacts.");
       }
     }
 
@@ -33,10 +25,10 @@ export default function ContactList({ setSelectedContactId }) {
   }, []);
 
   return (
-    <table>
+    <table className="table">
       <thead>
         <tr>
-          <th colSpan="3">Contact List</th>
+          <th colSpan="3">Contacts</th>
         </tr>
       </thead>
       <tbody>
@@ -45,14 +37,15 @@ export default function ContactList({ setSelectedContactId }) {
           <td>Email</td>
           <td>Phone</td>
         </tr>
-        {contacts.map((contact) => (
-          <ContactRow 
-            key={contact.id} // Unique key for React's rendering optimization
-            contact={contact} 
-            setSelectedContactId={setSelectedContactId}  // Pass function to handle selection
-            />
-          />
-        ))}
+        {contacts.length > 0 ? (
+          contacts.map((contact) => (
+            <ContactRow key={contact.id} contact={contact} setSelectedContactId={setSelectedContactId} />
+          ))
+        ) : (
+          <tr>
+            <td colSpan="3">No contacts available</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );
